@@ -15,6 +15,20 @@ public class Jugador {
         for (int i = 0; i < TOTAL_CARTAS; i++) {
             cartas[i] = new Carta(r);
         }
+        ordenarCartas(cartas);
+    }
+
+    public void ordenarCartas(Carta[] cartas) {
+        Carta cartaAux;
+        for (int i = 0; i < TOTAL_CARTAS - 1; i++) {
+            for (int j = i + 1; j < TOTAL_CARTAS; j++) {
+                if (cartas[i].getNombre().ordinal() > cartas[j].getNombre().ordinal()) {
+                    cartaAux = cartas[i];
+                    cartas[i] = cartas[j];
+                    cartas[j] = cartaAux;
+                }
+            }
+        }
     }
 
     public void mostrar(JPanel pnl) {
