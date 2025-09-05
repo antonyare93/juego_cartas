@@ -54,9 +54,33 @@ public class Jugador {
     public String getGrupos() {
         String resultado = "No se encontraron grupos";
 
+        int[] escaleras = new int[NombreCarta.values().length];
+        for (int i = 0; i < cartas.length - 1; i++) {
+            int conteo = 1;
+            for (int j = i + 1; j < cartas.length; j++) {
+                if (!cartas[i].isUtilizada()) {
+                    if (cartas[j].getNombre().ordinal() - cartas[i].getNombre().ordinal() == conteo && cartas[j].getPinta() == cartas[i].getPinta()) {
+                        conteo++;
+                        escaleras[i] = conteo;
+                        cartas[j].setUtilizada(true);
+                    }
+                }
+            }
+            if (conteo > 1) {
+                cartas[i].setUtilizada(true);
+                continue;
+            }
+            escaleras[i] = conteo;
+        }
+
         int[] contadores = new int[NombreCarta.values().length];
         for (Carta carta : cartas) {
             contadores[carta.getNombre().ordinal()]++;
+        }
+        for (Carta carta : cartas) {
+            if (contadores[carta.getNombre().ordinal()] >= 2) {
+                carta.setUtilizada(true);
+            }
         }
 
         boolean hayGrupo = false;
@@ -66,10 +90,23 @@ public class Jugador {
                 break;
             }
         }
+        for (int escalera : escaleras) {
+            if (escalera >= 2) {
+                hayGrupo = true;
+                break;
+            }
+        }
 
         if (hayGrupo) {
             resultado = "Se encontraron los siguientes grupos";
             int p = 0;
+            for (int escalera : escaleras) {
+                if (escalera >= 2) {
+                    resultado += "\nEscalera desde " + cartas[p].getNombre() + " hasta " + cartas[p + escalera - 1].getNombre() + " de " + cartas[p].getPinta();
+                }
+                p++;
+            }
+            p = 0;
             for (int contador : contadores) {
                 if (contador >= 2) {
                     resultado += "\n" + Grupo.values()[contador] + " de " + NombreCarta.values()[p];
