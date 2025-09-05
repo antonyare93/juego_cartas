@@ -102,7 +102,7 @@ public class Jugador {
             int p = 0;
             for (int escalera : escaleras) {
                 if (escalera >= 2) {
-                    resultado += "\nEscalera desde " + cartas[p].getNombre() + " hasta " + cartas[p + escalera - 1].getNombre() + " de " + cartas[p].getPinta();
+                    resultado += "\nEscalera desde " + cartas[p].getNombre() + " hasta " + NombreCarta.values()[cartas[p].getNombre().ordinal() + escalera] + " de " + cartas[p].getPinta();
                 }
                 p++;
             }
