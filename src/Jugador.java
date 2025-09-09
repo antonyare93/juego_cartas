@@ -114,6 +114,24 @@ public class Jugador {
                 p++;
             }
         }
+        int total = 0;
+        String sb = "Puntaje: ";
+        
+        boolean first = true;
+        for (Carta carta : cartas) {
+            if (!carta.isUtilizada()) {
+                int valor = carta.getNombre().ordinal() > 0 && carta.getNombre().ordinal() < 9 ? carta.getNombre().ordinal() + 1 : 10;
+                if (!first) {
+                    sb += " + ";
+                }
+                //mostrar el como se calcula el puntaje total
+                sb += valor + " (" + carta.getNombre() + " de " + carta.getPinta() + ")";
+                total += valor;
+                first = false;
+            }
+        }
+        sb += " = " + total;
+        resultado += "\n" + sb;
 
         return resultado;
     }
