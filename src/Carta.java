@@ -15,6 +15,7 @@ public class Carta {
 
     public Carta(Random r) {
         indice = r.nextInt(52) + 1;
+        utilizada = false;
     }
 
     public JLabel mostrar(JPanel pnl, int x, int y) {
