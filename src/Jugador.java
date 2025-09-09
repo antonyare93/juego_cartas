@@ -3,6 +3,7 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class Jugador {
 
     private final int TOTAL_CARTAS = 10;
@@ -98,7 +99,7 @@ public class Jugador {
         }
 
         if (hayGrupo) {
-            resultado = "Se encontraron los siguientes grupos";
+            resultado = "Grupos:";
             int p = 0;
             for (int escalera : escaleras) {
                 if (escalera >= 2) {
@@ -114,26 +115,40 @@ public class Jugador {
                 p++;
             }
         }
+        resultado += "\n";
+
         int total = 0;
-        String sb = "Puntaje: ";
+        int contadorCartas = 0;
+        String sb = "Sobra:\n";
         
         boolean first = true;
         for (Carta carta : cartas) {
             if (!carta.isUtilizada()) {
-                int valor = carta.getNombre().ordinal() > 0 && carta.getNombre().ordinal() < 9 ? carta.getNombre().ordinal() + 1 : 10;
+                int valor = carta.getNombre().ordinal() > 0 && carta.getNombre().ordinal() < 9 
+                            ? carta.getNombre().ordinal() + 1 
+                            : 10;
+        
                 if (!first) {
                     sb += " + ";
                 }
-                //mostrar el como se calcula el puntaje total
-                sb += valor + " (" + carta.getNombre() + " de " + carta.getPinta() + ")";
+                sb += carta.getNombre() + " de " + carta.getPinta();
                 total += valor;
                 first = false;
+                contadorCartas++;
+                
+
+                if (contadorCartas % 3 == 0) {
+                    sb += "\n";
+                    first = true;
             }
         }
-        sb += " = " + total;
+        
+    }
+        sb += "\n\nPuntos:\n" + total;
         resultado += "\n" + sb;
-
+        
         return resultado;
+        
     }
 
 }
