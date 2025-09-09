@@ -59,7 +59,7 @@ public class Jugador {
             int conteo = 1;
             for (int j = i + 1; j < cartas.length; j++) {
                 if (!cartas[i].isUtilizada()) {
-                    if (cartas[j].getNombre().ordinal() - cartas[i].getNombre().ordinal() == conteo && cartas[j].getPinta() == cartas[i].getPinta()) {
+                    if (cartas[j].getNombre().ordinal() - cartas[i].getNombre().ordinal() == conteo && cartas[j].getPinta() == cartas[i].getPinta() && !cartas[j].isUtilizada()) {
                         conteo++;
                         escaleras[i] = conteo;
                         cartas[j].setUtilizada(true);
